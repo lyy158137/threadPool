@@ -50,9 +50,7 @@ int threadpool_free(threadPool_t*pool);
                      /*线程的创建*/
 threadPool_t *threadpool_create(int min_thr_num,int max_thr_num,int queue_max_size)
 {
-    int i;
     threadPool_t * pool = nullptr;
-
     do
     {
     if((pool = static_cast<threadPool_t*>(malloc(sizeof(threadPool_t))))==nullptr)
@@ -102,7 +100,7 @@ threadPool_t *threadpool_create(int min_thr_num,int max_thr_num,int queue_max_si
         break;
     }
 
-    for(i= 0;i<min_thr_num;++i)
+    for(int i= 0;i<min_thr_num;++i)
     {
       int ret = pthread_create(&pool->threads[i],nullptr,threadpool_thread,static_cast<void*>(pool));
       printf("create thread %x done\n", static_cast<unsigned int>(pool->threads[i]));// 输出线程id
